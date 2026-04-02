@@ -250,7 +250,7 @@ impl NodeState {
                     blobs=block.blob_gas_used().unwrap_or(0) / alloy_eips::eip4844::DATA_GAS_PER_BLOB,
                     excess_blobs=block.excess_blob_gas().unwrap_or(0) / alloy_eips::eip4844::DATA_GAS_PER_BLOB,
                     ?elapsed,
-                    "Block added to canonical chain"
+                    "DEBUG: Block added to canonical chain"
                 );
             }
             ConsensusEngineEvent::CanonicalChainCommitted(head, elapsed) => {
