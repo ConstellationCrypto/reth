@@ -122,6 +122,16 @@ pub enum InsertBlockErrorKind {
 }
 
 impl InsertBlockErrorKind {
+    /// Returns true if this failure is an invalid-block case (Engine API `INVALID`), not a fatal
+    /// provider or internal execution error.
+    pub fn is_block_validation_failure(&self) -> bool {
+        match self {
+            Self::Consensus(_) => true,
+            Self::Execution(err) => matches!(err, BlockExecutionError::Validation(_)),
+            Self::Provider(_) | Self::Other(_) => false,
+        }
+    }
+
     /// Returns an [`InsertBlockValidationError`] if the error is caused by an invalid block.
     ///
     /// Returns an [`InsertBlockFatalError`] if the error is caused by an error that is not
